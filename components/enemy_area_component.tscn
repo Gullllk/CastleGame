@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://i340ah2piitv"]
+
+[ext_resource type="Script" uid="uid://c8lx7npmdrrax" path="res://enemy_area_component.gd" id="1_nqg80"]
+
+[node name="EnemyAreaComponent" type="Area2D" unique_id=79664541]
+script = ExtResource("1_nqg80")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,0 +1,51 @@
+[gd_scene format=4 uid="uid://b580qaekvyfnw"]
+
+[ext_resource type="Texture2D" uid="uid://dp8mf3h36ek40" path="res://assets/tiles/tileset 1.0.png" id="1_6ovph"]
+[ext_resource type="PackedScene" uid="uid://p5d78pclcg74" path="res://scenes/player.tscn" id="2_bwv4p"]
+[ext_resource type="PackedScene" uid="uid://bvmlhr61bnvup" path="res://scenes/knight.tscn" id="3_odhdn"]
+[ext_resource type="PackedScene" uid="uid://i340ah2piitv" path="res://components/enemy_area_component.tscn" id="4_dw26h"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwv4p"]
+texture = ExtResource("1_6ovph")
+1:1/size_in_atlas = Vector2i(2, 2)
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_odhdn"]
+sources/0 = SubResource("TileSetAtlasSource_bwv4p")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dw26h"]
+texture = ExtResource("1_6ovph")
+7:3/size_in_atlas = Vector2i(3, 2)
+7:3/0 = 0
+10:3/size_in_atlas = Vector2i(3, 2)
+10:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_lrl65"]
+sources/0 = SubResource("TileSetAtlasSource_dw26h")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lrl65"]
+radius = 52.153618
+
+[node name="Level1" type="Node2D" unique_id=1931514067]
+position = Vector2(26, 43)
+
+[node name="Floor" type="TileMapLayer" parent="." unique_id=124393546]
+tile_map_data = PackedByteArray("AAAAAAAAAAABAAEAAAACAAAAAAABAAEAAAAEAAAAAAABAAEAAAAAAAIAAAABAAEAAAACAAIAAAABAAEAAAAEAAIAAAABAAEAAAAGAAAAAAABAAEAAAAGAAIAAAABAAEAAAAIAAAAAAABAAEAAAAIAAIAAAABAAEAAAAAAAQAAAABAAEAAAACAAQAAAABAAEAAAAEAAQAAAABAAEAAAAGAAQAAAABAAEAAAAIAAQAAAABAAEAAAAKAAAAAAABAAEAAAAKAAIAAAABAAEAAAAKAAQAAAABAAEAAAAMAAAAAAABAAEAAAAMAAIAAAABAAEAAAAAAAYAAAABAAEAAAACAAYAAAABAAEAAAAEAAYAAAABAAEAAAAGAAYAAAABAAEAAAAIAAYAAAABAAEAAAAKAAYAAAABAAEAAAAMAAQAAAABAAEAAAAMAAYAAAABAAEAAAAOAAAAAAABAAEAAAAOAAIAAAABAAEAAAAOAAQAAAABAAEAAAAOAAYAAAABAAEAAAAQAAAAAAABAAEAAAAQAAIAAAABAAEAAAAQAAQAAAABAAEAAAAQAAYAAAABAAEAAAASAAAAAAABAAEAAAASAAIAAAABAAEAAAASAAQAAAABAAEAAAASAAYAAAABAAEAAAA=")
+tile_set = SubResource("TileSet_odhdn")
+
+[node name="Walls" type="TileMapLayer" parent="." unique_id=642389758]
+tile_map_data = PackedByteArray("AAAAAP7/AAAHAAMAAAACAP7/AAAKAAMAAAAEAP7/AAAKAAMAAAAGAP7/AAAKAAMAAAAIAP7/AAAKAAMAAAAKAP7/AAAKAAMAAAAMAP7/AAAKAAMAAAAOAP7/AAAKAAMAAAAQAP7/AAAKAAMAAAARAP7/AAAKAAMAAAASAP7/AAAKAAMAAAA=")
+tile_set = SubResource("TileSet_lrl65")
+
+[node name="Player" parent="." unique_id=995573411 instance=ExtResource("2_bwv4p")]
+position = Vector2(53, 31)
+
+[node name="Knight" parent="." unique_id=1692465840 instance=ExtResource("3_odhdn")]
+position = Vector2(266, 32)
+
+[node name="EnemyAreaComponent" parent="Knight" unique_id=79664541 node_paths=PackedStringArray("player") instance=ExtResource("4_dw26h")]
+player = NodePath("../../Player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Knight/EnemyAreaComponent" unique_id=1455525051]
+shape = SubResource("CircleShape2D_lrl65")
+debug_color = Color(0.8199854, 0.38046283, 0.36574233, 0.41960785)
