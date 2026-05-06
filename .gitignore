@@ -2,10 +2,13 @@
 .godot/
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /android/
 =======
 =======
 >>>>>>> 97073a4da09f98b0ad2453464606718f617cb0f9
+=======
+>>>>>>> df0cd44ad1177a42cee5ceb33352a366023101fb
 .nomedia
 
 # Godot-specific ignores
@@ -22,6 +25,9 @@ export_credentials.cfg
 data_*/
 mono_crash.*.json
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 97073a4da09f98b0ad2453464606718f617cb0f9
 =======
 >>>>>>> 97073a4da09f98b0ad2453464606718f617cb0f9
+=======
+>>>>>>> df0cd44ad1177a42cee5ceb33352a366023101fb
