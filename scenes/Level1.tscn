@@ -40,7 +40,8 @@ tile_set = SubResource("TileSet_lrl65")
 [node name="Knight" parent="." unique_id=1692465840 instance=ExtResource("3_odhdn")]
 position = Vector2(266, 32)
 
-[node name="EnemyAreaComponent" parent="Knight" unique_id=79664541 instance=ExtResource("4_dw26h")]
+[node name="EnemyAreaComponent" parent="Knight" unique_id=79664541 node_paths=PackedStringArray("player") instance=ExtResource("4_dw26h")]
+player = NodePath("../Player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Knight/EnemyAreaComponent" unique_id=1455525051]
 shape = SubResource("CircleShape2D_lrl65")
