@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://br0l7h6nma3pl" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dkmu4mknb0trh" path="res://assets/sprites/Character 3.0 SINGLE FRAME SPRITE.png" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://20xq88s2jrri" path="res://components/state_machine.tscn" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://dxblynaf68rbn" path="res://scripts/player_walking.gd" id="4_qlg0r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dqkch"]
 animations = [{
@@ -9,7 +11,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_qhqgy")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -28,3 +30,11 @@ autoplay = "default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=473150386]
 position = Vector2(-1, 1)
 shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="State Machine" parent="." unique_id=1844906712 node_paths=PackedStringArray("initial_state") instance=ExtResource("3_dqkch")]
+initial_state = NodePath("Walking")
+
+[node name="Walking" type="Node" parent="State Machine" unique_id=480406031 node_paths=PackedStringArray("player")]
+script = ExtResource("4_qlg0r")
+player = NodePath("../..")
+speed = 50

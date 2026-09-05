@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bbdw0djeifcvg"]
 
-[ext_resource type="Script" uid="uid://ctty0dvxb6gu7" path="res://turn_based_combat.gd" id="1_6toxu"]
+[ext_resource type="Script" uid="uid://ctty0dvxb6gu7" path="res://scripts/turn_based_combat.gd" id="1_6toxu"]
 [ext_resource type="Texture2D" uid="uid://cm3gto6jyg3bo" path="res://assets/sprites/knight TEMPORARY.png" id="2_bcolv"]
 
 [node name="TurnBasedCombat" type="Node2D" unique_id=1564573653]

@@ -37,15 +37,14 @@ tile_set = SubResource("TileSet_odhdn")
 tile_map_data = PackedByteArray("AAAAAP7/AAAHAAMAAAACAP7/AAAKAAMAAAAEAP7/AAAKAAMAAAAGAP7/AAAKAAMAAAAIAP7/AAAKAAMAAAAKAP7/AAAKAAMAAAAMAP7/AAAKAAMAAAAOAP7/AAAKAAMAAAAQAP7/AAAKAAMAAAARAP7/AAAKAAMAAAASAP7/AAAKAAMAAAA=")
 tile_set = SubResource("TileSet_lrl65")
 
-[node name="Player" parent="." unique_id=995573411 instance=ExtResource("2_bwv4p")]
-position = Vector2(53, 31)
-
 [node name="Knight" parent="." unique_id=1692465840 instance=ExtResource("3_odhdn")]
 position = Vector2(266, 32)
 
-[node name="EnemyAreaComponent" parent="Knight" unique_id=79664541 node_paths=PackedStringArray("player") instance=ExtResource("4_dw26h")]
-player = NodePath("../../Player")
+[node name="EnemyAreaComponent" parent="Knight" unique_id=79664541 instance=ExtResource("4_dw26h")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Knight/EnemyAreaComponent" unique_id=1455525051]
 shape = SubResource("CircleShape2D_lrl65")
 debug_color = Color(0.8199854, 0.38046283, 0.36574233, 0.41960785)
+
+[node name="Player" parent="Knight" unique_id=995573411 instance=ExtResource("2_bwv4p")]
+position = Vector2(-266, -32)
