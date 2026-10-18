@@ -41,5 +41,8 @@ func state_transition(state, new_state_name):
 	
 	new_state.Enter()
 	current_state = new_state
+	
+	
+
 		
 	
