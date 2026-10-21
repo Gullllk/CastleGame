@@ -195,15 +195,17 @@ script = ExtResource("1_g2els")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=382568229]
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_dqkch")
-animation = &"walking_right"
+animation = &"default_front"
 autoplay = "default_front"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=473150386]
 position = Vector2(-1, 1)
 shape = SubResource("CapsuleShape2D_g2els")
 
-[node name="State Machine" parent="." unique_id=1844906712 node_paths=PackedStringArray("initial_state") instance=ExtResource("3_dqkch")]
-initial_state = NodePath("Walking")
+[node name="State Machine" parent="." unique_id=1844906712 node_paths=PackedStringArray("initial_state", "player", "animated_sprite_2d") instance=ExtResource("3_dqkch")]
+initial_state = NodePath("Default")
+player = NodePath("..")
+animated_sprite_2d = NodePath("../AnimatedSprite2D")
 
 [node name="Walking" type="Node" parent="State Machine" unique_id=480406031 node_paths=PackedStringArray("player", "animated_sprite_2d")]
 script = ExtResource("4_qlg0r")
@@ -211,5 +213,7 @@ player = NodePath("../..")
 speed = 50
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
-[node name="Default" type="Node" parent="State Machine" unique_id=1214465596]
+[node name="Default" type="Node" parent="State Machine" unique_id=1214465596 node_paths=PackedStringArray("player", "animated_sprite_2d")]
 script = ExtResource("6_tuyoq")
+player = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
