@@ -203,7 +203,7 @@ position = Vector2(-1, 1)
 shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="State Machine" parent="." unique_id=1844906712 node_paths=PackedStringArray("initial_state", "player", "animated_sprite_2d") instance=ExtResource("3_dqkch")]
-initial_state = NodePath("Default")
+initial_state = NodePath("Walking")
 player = NodePath("..")
 animated_sprite_2d = NodePath("../AnimatedSprite2D")
 
@@ -213,7 +213,8 @@ player = NodePath("../..")
 speed = 50
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
-[node name="Default" type="Node" parent="State Machine" unique_id=1214465596 node_paths=PackedStringArray("player", "animated_sprite_2d")]
+[node name="Default" type="Node" parent="State Machine" unique_id=1214465596 node_paths=PackedStringArray("player", "animated_sprite_2d", "state_machine")]
 script = ExtResource("6_tuyoq")
 player = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+state_machine = NodePath("..")

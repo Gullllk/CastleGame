@@ -2,6 +2,8 @@
 extends Node
 class_name State
 
+signal switch
+
 func Enter():
 	pass
 

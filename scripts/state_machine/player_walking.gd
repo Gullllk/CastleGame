@@ -1,6 +1,7 @@
 extends State
 class_name PlayerWalking
-signal State_Transition 
+
+var state_name = "walking"
 
 @export var player : CharacterBody2D
 @export var speed := 10
@@ -40,9 +41,6 @@ func Physics_Update(_delta: float):
 	if player:
 	#makes sure player != null
 		player.velocity = direction * speed
-	
-	if !Input:
-		State_Transition.emit
 		
 func Update(_delta: float):
 	if Input.is_action_pressed("go_up"):

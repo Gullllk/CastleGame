@@ -1,31 +1,29 @@
 extends State
 class_name PlayerDefault
 
+var state_name = "default"
+
 @export var player: CharacterBody2D
 @export var animated_sprite_2d: AnimatedSprite2D
+@export var state_machine: Node
+
 
 var direction: Vector2
 
 func Enter():
-	animated_sprite_2d.play("default_front")
+	pass
 
 func Exit():
 	pass
 
-	
 func Physics_Update(_delta: float):
 	pass
 	
-func Update(_delta: float):
-	if Input.is_action_pressed("go_up"):
-		direction = Vector2.UP
-	elif Input.is_action_pressed("go_down"):
-		direction = Vector2.DOWN
-	elif Input.is_action_pressed("go_right"):
-		direction = Vector2.RIGHT
-	elif Input.is_action_pressed("go_left"):
-		direction = Vector2.LEFT
-	else: 
-		direction = Vector2.ZERO
-	if player:
-		play_animation(direction)
+func _process(delta: float) -> void:
+		if state_machine.current_state == state_machine.states.get("default"):
+			if InputEvent:
+				switch.connect(state_machine.state_transition("walking"))
+				#switch.emit("default", "walking")
+	
+	
+		
