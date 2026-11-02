@@ -6,25 +6,24 @@ var state_name = "walking"
 @export var player : CharacterBody2D
 @export var speed := 10
 @export var animated_sprite_2d : AnimatedSprite2D
+@export var state_machine : Node
 
-var direction: Vector2
 
 func Enter():
-	pass
+	print("walking entered")
+
+func stopped_walking():
+	var inputs = [Input.is_action_just_released("go_up"), 
+	Input.is_action_just_released("go_down"),
+	Input.is_action_just_released("go_right"),
+	Input.is_action_just_released("go_left")]
 	
-#func get_direction():
-	#var direction : Vector2
-	#if Input.is_action_pressed("go_up"):
-		#direction = Vector2.UP
-	#elif Input.is_action_pressed("go_down"):
-		#direction = Vector2.DOWN
-	#elif Input.is_action_pressed("go_right"):
-		#direction = Vector2.RIGHT
-	#elif Input.is_action_pressed("go_left"):
-		#direction = Vector2.LEFT
-	#else: 
-		#direction = Vector2.ZERO
-	#return direction
+	for input in inputs:
+		if input:
+			switch.emit("idle")
+			return
+	
+	
 		
 func play_animation(direction):
 	if direction == Vector2.UP:
@@ -38,24 +37,17 @@ func play_animation(direction):
 	
 	
 func Physics_Update(_delta: float):
-	if player:
-	#makes sure player != null
-		player.velocity = direction * speed
+	player.velocity = state_machine.direction * speed
+	
 		
 func Update(_delta: float):
-	if Input.is_action_pressed("go_up"):
-		direction = Vector2.UP
-	elif Input.is_action_pressed("go_down"):
-		direction = Vector2.DOWN
-	elif Input.is_action_pressed("go_right"):
-		direction = Vector2.RIGHT
-	elif Input.is_action_pressed("go_left"):
-		direction = Vector2.LEFT
-	else: 
-		direction = Vector2.ZERO
-	if player:
-		play_animation(direction)
+	play_animation(state_machine.direction)
+	stopped_walking()
+
+func _process(delta: float) -> void:
+	pass
 
 func Exit():
+	print("walking exited")
 	animated_sprite_2d.stop()
 		

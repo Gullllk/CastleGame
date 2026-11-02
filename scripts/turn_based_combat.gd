@@ -1,66 +1,95 @@
-extends Node2D 
+extends Node 
 
-  
+@onready var enemy_hp_label = $EnemyHPLabel
+@onready var player_hp_label = $PlayerHPLabel
+@export var player: CharacterBody2D
 
-@onready var hp_label = $Enemy/HPLabel 
 
-  
-
-@export var player: CharacterBody2D 
-
-@export var oponent: StaticBody2D 
-
-  
-
+var opponent : Enemy
 var current_character 
+var game_over : bool = false
+var player_action : String
+var opponent_next_attack_damage = opponent.damage
+var player_next_attack_damage = player.damage
 
-var game_over = false 
 
+func _ready() -> void:
+	for child in get_children():
+		if child == Enemy:
+			opponent = child
+	
+	enemy_hp_label.text = str(opponent.hp) 
+	player_hp_label.text = str(player.hp)
+	
+
+
+func next_turn():
+	
+	if game_over:
+		Exit()
+	
+	if current_character == opponent or current_character == null:
+		current_character = player
+	else:
+		current_character = opponent
+	
+	if current_character == player:
+		$Control/AttackButton.show()
+		$Control/DefendButton.show()
+		player_actions(player_action)
+		if opponent.hp <= 0:
+			game_over = true
+			winner()
+			return
+		await get_tree().create_timer(2)
+		next_turn()
+	else:
+		$Control/AttackButton.hide()
+		$Control/DefendButton.hide()
+		var enemy_action = randi_range(0,2)
+		if enemy_action:
+			if enemy_action == 1:
+				player.hp -= opponent_next_attack_damage
+				opponent_next_attack_damage = opponent.damage
+			else:
+				player_next_attack_damage -= opponent.defend
+
+			if player.hp <= 0:
+				game_over = true
+				winner()
+				return
+		await get_tree().create_timer(2)
+		next_turn()
+			
   
-
-var player_hp: int = 100 
-
-var oponent_hp: int = 100 
-
-##idea: when i want to generalize turn based combat node i can try 
-
-##exporting an hp variable form the script of the specific enemy 
-
-  
-
-func _ready() -> void: 
-
-	hp_label.text =str(oponent_hp) 
-
-  
+func winner():
+	if game_over:
+		if player.hp <= 0:
+			print("The opponent has won")
+			get_tree().change_scene_to_file("res://scenes/Level1.tscn")
+		elif opponent.hp <= 0:
+			print("You have won")
+			
+	Exit()
 
 func _on_attack_button_button_down() -> void: 
-	if oponent_hp > 0: 
+	player_action = "attack"
+	$Control/AttackButton.hide()
+	$Control/DefendButton.hide()
 
-		oponent_hp = oponent_hp - 10 
+func _on_defend_button_button_down() -> void:
+	player_action = "defend"
+	$Control/AttackButton.hide()
+	$Control/DefendButton.hide()
+	
 
-		hp_label.text = str(oponent_hp) 
+func player_actions(action):
+	if action == "attack":
+		opponent.hp -= player_next_attack_damage
+		player_next_attack_damage = player.damage
+	
+	if action == "defend":
+		opponent_next_attack_damage -= player.defend
 
-		 
-
-  
-
-func game_is_over(): 
-
-	if player_hp or oponent_hp == 0: 
-
-		game_over = true 
-
-  
-
-func who_won(): 
-
-	if game_over == true: 
-
-		if oponent_hp == 0: 
-
-			print("You've won!") 
-
-		elif player_hp == 0: 
-
-			print("You've lost!") 
+func Exit():
+	pass

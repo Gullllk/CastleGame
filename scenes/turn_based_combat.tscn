@@ -1,31 +1,19 @@
 [gd_scene format=3 uid="uid://bbdw0djeifcvg"]
 
 [ext_resource type="Script" uid="uid://ctty0dvxb6gu7" path="res://scripts/turn_based_combat.gd" id="1_6toxu"]
-[ext_resource type="Texture2D" uid="uid://cm3gto6jyg3bo" path="res://assets/sprites/knight TEMPORARY.png" id="2_bcolv"]
+[ext_resource type="PackedScene" uid="uid://p5d78pclcg74" path="res://scenes/player.tscn" id="3_bcolv"]
 
-[node name="TurnBasedCombat" type="Node2D" unique_id=1564573653]
+[node name="TurnBasedCombat" type="Node2D" unique_id=1564573653 node_paths=PackedStringArray("player")]
 script = ExtResource("1_6toxu")
-
-[node name="Enemy" type="Node2D" parent="." unique_id=64895842]
-
-[node name="Sprite2D" type="Sprite2D" parent="Enemy" unique_id=1107921492]
-position = Vector2(55, 64)
-texture = ExtResource("2_bcolv")
-
-[node name="HPLabel" type="Label" parent="Enemy" unique_id=1127805896]
-offset_left = 36.0
-offset_top = 12.0
-offset_right = 76.0
-offset_bottom = 38.0
-metadata/_edit_use_anchors_ = true
+player = NodePath("Player")
 
 [node name="Control" type="Control" parent="." unique_id=1966031545]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 27.0
-offset_top = 20.0
-offset_right = 155.0
-offset_bottom = 119.0
+offset_left = 41.0
+offset_top = 19.0
+offset_right = 169.0
+offset_bottom = 118.0
 
 [node name="AttackButton" type="Button" parent="Control" unique_id=1102852287]
 layout_mode = 1
@@ -53,4 +41,21 @@ offset_bottom = 77.705
 text = "Defend"
 metadata/_edit_use_anchors_ = true
 
+[node name="Player" parent="." unique_id=995573411 instance=ExtResource("3_bcolv")]
+position = Vector2(45, 73)
+
+[node name="EnemyHPLabel" type="Label" parent="." unique_id=1127805896]
+offset_left = 36.0
+offset_top = 12.0
+offset_right = 76.0
+offset_bottom = 38.0
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerHPLabel" type="Label" parent="." unique_id=1431614277]
+offset_left = 105.0
+offset_top = 26.0
+offset_right = 145.0
+offset_bottom = 49.0
+
 [connection signal="button_down" from="Control/AttackButton" to="." method="_on_attack_button_button_down"]
+[connection signal="button_down" from="Control/DefendButton" to="." method="_on_defend_button_button_down"]

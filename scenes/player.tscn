@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://drk7hawk27kpm" path="res://assets/sprites/Character sprites-Sheet.png" id="2_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://20xq88s2jrri" path="res://components/state_machine.tscn" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://dxblynaf68rbn" path="res://scripts/state_machine/player_walking.gd" id="4_qlg0r"]
-[ext_resource type="Script" uid="uid://be85p86wdjc64" path="res://scripts/state_machine/player_default.gd" id="6_tuyoq"]
+[ext_resource type="Script" uid="uid://be85p86wdjc64" path="res://scripts/state_machine/player_idle.gd" id="6_tuyoq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
 atlas = ExtResource("2_qlg0r")
@@ -90,7 +90,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_tuyoq")
 }],
 "loop": 1,
-"name": &"default_back",
+"name": &"idle_back",
 "speed": 5.0
 }, {
 "frames": [{
@@ -98,7 +98,7 @@ animations = [{
 "texture": ExtResource("2_qhqgy")
 }],
 "loop": 1,
-"name": &"default_front",
+"name": &"idle_front",
 "speed": 5.0
 }, {
 "frames": [{
@@ -106,7 +106,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_fjrip")
 }],
 "loop": 1,
-"name": &"default_left",
+"name": &"idle_left",
 "speed": 5.0
 }, {
 "frames": [{
@@ -114,7 +114,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_smehm")
 }],
 "loop": 1,
-"name": &"default_right",
+"name": &"idle_right",
 "speed": 5.0
 }, {
 "frames": [{
@@ -195,26 +195,30 @@ script = ExtResource("1_g2els")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=382568229]
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_dqkch")
-animation = &"default_front"
-autoplay = "default_front"
+animation = &"idle_left"
+autoplay = "idle_front"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=473150386]
 position = Vector2(-1, 1)
 shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="State Machine" parent="." unique_id=1844906712 node_paths=PackedStringArray("initial_state", "player", "animated_sprite_2d") instance=ExtResource("3_dqkch")]
-initial_state = NodePath("Walking")
+initial_state = NodePath("Idle")
 player = NodePath("..")
 animated_sprite_2d = NodePath("../AnimatedSprite2D")
 
-[node name="Walking" type="Node" parent="State Machine" unique_id=480406031 node_paths=PackedStringArray("player", "animated_sprite_2d")]
+[node name="Walking" type="Node" parent="State Machine" unique_id=480406031 node_paths=PackedStringArray("player", "animated_sprite_2d", "state_machine")]
 script = ExtResource("4_qlg0r")
 player = NodePath("../..")
-speed = 50
+speed = 40
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+state_machine = NodePath("..")
 
-[node name="Default" type="Node" parent="State Machine" unique_id=1214465596 node_paths=PackedStringArray("player", "animated_sprite_2d", "state_machine")]
+[node name="Idle" type="Node" parent="State Machine" unique_id=1214465596 node_paths=PackedStringArray("player", "animated_sprite_2d", "state_machine")]
 script = ExtResource("6_tuyoq")
 player = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 state_machine = NodePath("..")
+
+[connection signal="switch" from="State Machine/Walking" to="State Machine" method="_on_walking_switch"]
+[connection signal="switch" from="State Machine/Idle" to="State Machine" method="_on_idle_switch"]
