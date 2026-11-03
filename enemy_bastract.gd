@@ -1,9 +1,7 @@
-extends Enemy
+@abstract
 
-@export var hp : int
-@export var damage : int
-@export var defend : int
-
+extends StaticBody2D
+class_name Enemy
 
 
 # Called when the node enters the scene tree for the first time.

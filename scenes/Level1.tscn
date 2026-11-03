@@ -1,11 +1,9 @@
 [gd_scene format=4 uid="uid://b580qaekvyfnw"]
 
 [ext_resource type="Texture2D" uid="uid://dp8mf3h36ek40" path="res://assets/tiles/tileset 1.0.png" id="1_6ovph"]
-[ext_resource type="Script" uid="uid://ctty0dvxb6gu7" path="res://scripts/turn_based_combat.gd" id="1_76388"]
 [ext_resource type="PackedScene" uid="uid://p5d78pclcg74" path="res://scenes/player.tscn" id="2_bwv4p"]
 [ext_resource type="PackedScene" uid="uid://bvmlhr61bnvup" path="res://scenes/knight.tscn" id="3_odhdn"]
 [ext_resource type="PackedScene" uid="uid://i340ah2piitv" path="res://components/enemy_area_component.tscn" id="4_dw26h"]
-[ext_resource type="PackedScene" uid="uid://bbdw0djeifcvg" path="res://scenes/turn_based_combat.tscn" id="5_lrl65"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwv4p"]
 texture = ExtResource("1_6ovph")
@@ -29,7 +27,6 @@ sources/0 = SubResource("TileSetAtlasSource_dw26h")
 radius = 52.153618
 
 [node name="Level1" type="Node" unique_id=1529813403]
-script = ExtResource("1_76388")
 
 [node name="Elements" type="Node2D" parent="." unique_id=1480308496]
 position = Vector2(79, 107)
@@ -44,9 +41,6 @@ tile_set = SubResource("TileSet_lrl65")
 
 [node name="Knight" parent="Elements/Walls" unique_id=1692465840 instance=ExtResource("3_odhdn")]
 position = Vector2(266, 32)
-hp = 0
-damage = 0
-defend = 0
 
 [node name="EnemyAreaComponent" parent="Elements/Walls/Knight" unique_id=79664541 node_paths=PackedStringArray("player") instance=ExtResource("4_dw26h")]
 player = NodePath("../../../Player")
@@ -56,7 +50,3 @@ shape = SubResource("CircleShape2D_lrl65")
 debug_color = Color(0.8199854, 0.38046283, 0.36574233, 0.41960785)
 
 [node name="Player" parent="Elements" unique_id=995573411 instance=ExtResource("2_bwv4p")]
-
-[node name="TurnBasedCombat" parent="." unique_id=1564573653 instance=ExtResource("5_lrl65")]
-
-[node name="Knight" parent="TurnBasedCombat" unique_id=121492719 instance=ExtResource("3_odhdn")]

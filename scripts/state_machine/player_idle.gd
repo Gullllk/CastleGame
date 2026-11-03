@@ -33,7 +33,7 @@ func play_animation(direction):
 		animated_sprite_2d.play("idle_right")
 
 func Enter():
-	print("idle entered")
+	pass
 
 func Exit():
 	print("idle exited")

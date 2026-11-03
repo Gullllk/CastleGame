@@ -1,15 +1,11 @@
-@abstract
-extends Node
+extends Sprite2D
+@export var turn_based_combat : Node
 
-class_name Enemy
-
-#@export var hp : int
-#@export var damage : int
-#@export var defend : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
+	#self.texture = turn_based_combat.opponent.stats.texture
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

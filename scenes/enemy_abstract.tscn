@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d237a4jhvnlb2"]
+
+[ext_resource type="Script" uid="uid://dxvwiiisufvle" path="res://enemy_bastract.gd" id="1_nql3w"]
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=997817567]
+script = ExtResource("1_nql3w")

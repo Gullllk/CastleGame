@@ -1,31 +1,16 @@
 [gd_scene format=3 uid="uid://bvmlhr61bnvup"]
 
-[ext_resource type="Script" uid="uid://ddjopqjmafw6f" path="res://scenes/knight.gd" id="1_3i0j8"]
-[ext_resource type="Texture2D" uid="uid://cm3gto6jyg3bo" path="res://assets/sprites/knight TEMPORARY.png" id="2_qxgmm"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5fsgc"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_qxgmm")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
-}]
+[ext_resource type="Script" uid="uid://ddjopqjmafw6f" path="res://scripts/knight.gd" id="1_3i0j8"]
+[ext_resource type="Resource" uid="uid://b21qdfqc3rbhw" path="res://resources/enemy resources/knight.tres" id="2_0dyjn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_swm0g"]
 radius = 19.026299
 
 [node name="Knight" type="StaticBody2D" unique_id=121492719]
 script = ExtResource("1_3i0j8")
-hp = 100
-damage = 20
-defend = 20
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1573054189]
-sprite_frames = SubResource("SpriteFrames_5fsgc")
-autoplay = "default"
+stats = ExtResource("2_0dyjn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1782118784]
 shape = SubResource("CircleShape2D_swm0g")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1753122706]
