@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cy14ratuxvjb6"]
 
-[ext_resource type="PackedScene" uid="uid://bbdw0djeifcvg" path="res://scenes/turn_based_combat.tscn" id="1_ekcfv"]
+[ext_resource type="PackedScene" uid="uid://bbdw0djeifcvg" path="res://components/turn_based_combat.tscn" id="1_ekcfv"]
 [ext_resource type="PackedScene" uid="uid://bvmlhr61bnvup" path="res://scenes/knight.tscn" id="2_5jbmu"]
 
 [node name="CombatTest" type="Node2D" unique_id=105858368]

@@ -10,7 +10,7 @@ var state_name = "walking"
 
 
 func Enter():
-	print("walking entered")
+	pass
 
 func stopped_walking():
 	var inputs = [Input.is_action_just_released("go_up"), 
@@ -48,6 +48,5 @@ func _process(delta: float) -> void:
 	pass
 
 func Exit():
-	print("walking exited")
 	animated_sprite_2d.stop()
 		

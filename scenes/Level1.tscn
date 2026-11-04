@@ -1,9 +1,12 @@
 [gd_scene format=4 uid="uid://b580qaekvyfnw"]
 
 [ext_resource type="Texture2D" uid="uid://dp8mf3h36ek40" path="res://assets/tiles/tileset 1.0.png" id="1_6ovph"]
+[ext_resource type="Script" uid="uid://0bqmepa58fwr" path="res://scripts/level_1.gd" id="1_lrl65"]
 [ext_resource type="PackedScene" uid="uid://p5d78pclcg74" path="res://scenes/player.tscn" id="2_bwv4p"]
 [ext_resource type="PackedScene" uid="uid://bvmlhr61bnvup" path="res://scenes/knight.tscn" id="3_odhdn"]
 [ext_resource type="PackedScene" uid="uid://i340ah2piitv" path="res://components/enemy_area_component.tscn" id="4_dw26h"]
+[ext_resource type="Script" uid="uid://bmsallksbd0p3" path="res://components/enemy_area_component.gd" id="5_svatc"]
+[ext_resource type="PackedScene" uid="uid://bbdw0djeifcvg" path="res://components/turn_based_combat.tscn" id="6_76388"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwv4p"]
 texture = ExtResource("1_6ovph")
@@ -23,12 +26,15 @@ texture = ExtResource("1_6ovph")
 [sub_resource type="TileSet" id="TileSet_lrl65"]
 sources/0 = SubResource("TileSetAtlasSource_dw26h")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lrl65"]
-radius = 52.153618
-
-[node name="Level1" type="Node" unique_id=1529813403]
+[node name="Level1" type="Node" unique_id=1529813403 node_paths=PackedStringArray("turn_based_combat", "world", "player", "enemy")]
+script = ExtResource("1_lrl65")
+turn_based_combat = NodePath("TurnBasedCombat")
+world = NodePath("Elements")
+player = NodePath("Elements/Player")
+enemy = NodePath("Elements/Walls/Knight")
 
 [node name="Elements" type="Node2D" parent="." unique_id=1480308496]
+visible = false
 position = Vector2(79, 107)
 
 [node name="Floor" type="TileMapLayer" parent="Elements" unique_id=124393546]
@@ -42,11 +48,17 @@ tile_set = SubResource("TileSet_lrl65")
 [node name="Knight" parent="Elements/Walls" unique_id=1692465840 instance=ExtResource("3_odhdn")]
 position = Vector2(266, 32)
 
-[node name="EnemyAreaComponent" parent="Elements/Walls/Knight" unique_id=79664541 node_paths=PackedStringArray("player") instance=ExtResource("4_dw26h")]
-player = NodePath("../../../Player")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Elements/Walls/Knight/EnemyAreaComponent" unique_id=1455525051]
-shape = SubResource("CircleShape2D_lrl65")
-debug_color = Color(0.8199854, 0.38046283, 0.36574233, 0.41960785)
+[node name="EnemyAreaComponent" parent="Elements/Walls/Knight" unique_id=79664541 instance=ExtResource("4_dw26h")]
+script = ExtResource("5_svatc")
 
 [node name="Player" parent="Elements" unique_id=995573411 instance=ExtResource("2_bwv4p")]
+
+[node name="TurnBasedCombat" parent="." unique_id=1564573653 node_paths=PackedStringArray("main_scene") instance=ExtResource("6_76388")]
+position = Vector2(112, 126)
+main_scene = NodePath("..")
+
+[node name="Knight" parent="TurnBasedCombat" unique_id=121492719 instance=ExtResource("3_odhdn")]
+position = Vector2(95, 64)
+
+[connection signal="body_entered" from="Elements/Walls/Knight/EnemyAreaComponent" to="." method="_on_enemy_area_component_body_entered"]
+[connection signal="combat_over" from="TurnBasedCombat" to="." method="_on_turn_based_combat_combat_over"]

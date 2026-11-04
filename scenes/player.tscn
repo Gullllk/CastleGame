@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://br0l7h6nma3pl" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dkmu4mknb0trh" path="res://assets/sprites/Character 3.0 SINGLE FRAME SPRITE.png" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://drk7hawk27kpm" path="res://assets/sprites/Character sprites-Sheet.png" id="2_qlg0r"]
-[ext_resource type="PackedScene" uid="uid://20xq88s2jrri" path="res://components/state_machine.tscn" id="3_dqkch"]
+[ext_resource type="PackedScene" uid="uid://20xq88s2jrri" path="res://scenes/state_machine.tscn" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://dxblynaf68rbn" path="res://scripts/state_machine/player_walking.gd" id="4_qlg0r"]
 [ext_resource type="Script" uid="uid://be85p86wdjc64" path="res://scripts/state_machine/player_idle.gd" id="6_tuyoq"]
 
@@ -91,7 +91,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"idle_back",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -99,7 +99,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"idle_front",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -107,7 +107,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"idle_left",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -132,7 +132,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"walking_back",
-"speed": 4.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -149,7 +149,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"walking_front",
-"speed": 4.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -166,7 +166,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"walking_left",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -183,7 +183,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"walking_right",
-"speed": 4.0
+"speed": 6.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
@@ -195,7 +195,7 @@ script = ExtResource("1_g2els")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=382568229]
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_dqkch")
-animation = &"idle_left"
+animation = &"walking_back"
 autoplay = "idle_front"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=473150386]
@@ -210,7 +210,7 @@ animated_sprite_2d = NodePath("../AnimatedSprite2D")
 [node name="Walking" type="Node" parent="State Machine" unique_id=480406031 node_paths=PackedStringArray("player", "animated_sprite_2d", "state_machine")]
 script = ExtResource("4_qlg0r")
 player = NodePath("../..")
-speed = 40
+speed = 100
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 state_machine = NodePath("..")
 

@@ -36,7 +36,6 @@ func Enter():
 	pass
 
 func Exit():
-	print("idle exited")
 	animated_sprite_2d.stop()
 
 

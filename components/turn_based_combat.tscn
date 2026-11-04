@@ -66,7 +66,6 @@ text = "Player.hp"
 metadata/_edit_use_anchors_ = true
 
 [node name="Opponent\'s Turn" type="Label" parent="." unique_id=382862112]
-visible = false
 offset_left = 46.0
 offset_top = 101.0
 offset_right = 165.0
