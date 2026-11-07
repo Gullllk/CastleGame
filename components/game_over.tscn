@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://cwkscio6j8740"]
+
+[ext_resource type="Script" uid="uid://d2vpjyrpoqlrv" path="res://components/game_over.gd" id="1_p0012"]
+
+[node name="GameOverComponent" type="Control" unique_id=605962132 node_paths=PackedStringArray("container")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_p0012")
+container = NodePath("CanvasLayer/VBoxContainer")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=523173847]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -3.999998
+offset_right = 31.000008
+offset_bottom = 36.0
+scale = Vector2(50.840958, 32.282986)
+color = Color(0.36157545, 0.36157548, 0.36157548, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1878439801]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=227804410]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -29.0
+offset_right = 43.5
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOver" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=2059729450]
+layout_mode = 2
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryLevel" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=825621607]
+layout_mode = 2
+text = "Retry Level"
+
+[node name="Quit" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=778929493]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/RetryLevel" to="." method="_on_retry_level_button_down"]
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/Quit" to="." method="_on_quit_button_down"]

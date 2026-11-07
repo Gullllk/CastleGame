@@ -1,11 +1,17 @@
 extends CharacterBody2D
 
-@export var hp = 100
-var damage = 50
-var defend = 50
+
+@export var animated_sprite_2d : AnimatedSprite2D
+@export var state_machine : Node
+
+var hp = 1
+var damage : int = 30
+var defend : int = 30
+var max_hp = hp
+
+func _ready():
+	pass
 
 func _physics_process(delta):
 	move_and_slide()
 	
-func _process(delta: float) -> void:
-	pass

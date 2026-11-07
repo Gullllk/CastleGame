@@ -10,6 +10,7 @@ var state_name = "idle"
 var speed = 0
 
 
+
 func stopped_idle():
 	var inputs = [
 	Input.is_action_pressed("go_up"),
@@ -31,6 +32,7 @@ func play_animation(direction):
 		animated_sprite_2d.play("idle_left")
 	elif direction == Vector2.RIGHT:
 		animated_sprite_2d.play("idle_right")
+		
 
 func Enter():
 	pass

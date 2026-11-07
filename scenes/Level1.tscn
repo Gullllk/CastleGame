@@ -3,18 +3,96 @@
 [ext_resource type="Texture2D" uid="uid://dp8mf3h36ek40" path="res://assets/tiles/tileset 1.0.png" id="1_6ovph"]
 [ext_resource type="Script" uid="uid://0bqmepa58fwr" path="res://scripts/level_1.gd" id="1_lrl65"]
 [ext_resource type="PackedScene" uid="uid://p5d78pclcg74" path="res://scenes/player.tscn" id="2_bwv4p"]
+[ext_resource type="Texture2D" uid="uid://6v2d2ngcxxts" path="res://assets/tiles/tiles version 2.png" id="3_n34uq"]
 [ext_resource type="PackedScene" uid="uid://bvmlhr61bnvup" path="res://scenes/knight.tscn" id="3_odhdn"]
 [ext_resource type="PackedScene" uid="uid://i340ah2piitv" path="res://components/enemy_area_component.tscn" id="4_dw26h"]
-[ext_resource type="Script" uid="uid://bmsallksbd0p3" path="res://components/enemy_area_component.gd" id="5_svatc"]
+[ext_resource type="Texture2D" uid="uid://bpgk0yccehvld" path="res://assets/tiles/tiles version 3.png" id="4_kbo48"]
 [ext_resource type="PackedScene" uid="uid://bbdw0djeifcvg" path="res://components/turn_based_combat.tscn" id="6_76388"]
+[ext_resource type="AudioStream" uid="uid://db6pxb3mid622" path="res://assets/sounds/power_up.wav" id="7_ecr63"]
+[ext_resource type="PackedScene" uid="uid://h3pj4ov00isj" path="res://components/items/health_item.tscn" id="7_svatc"]
+[ext_resource type="PackedScene" uid="uid://cwkscio6j8740" path="res://components/game_over.tscn" id="11_4dyl1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwv4p"]
 texture = ExtResource("1_6ovph")
 1:1/size_in_atlas = Vector2i(2, 2)
 1:1/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kbo48"]
+texture = ExtResource("3_n34uq")
+4:2/0 = 0
+5:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+15:2/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+14:3/0 = 0
+15:3/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+11:4/0 = 0
+12:4/0 = 0
+13:4/0 = 0
+14:4/0 = 0
+15:4/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+10:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+14:5/0 = 0
+15:5/0 = 0
+2:2/0 = 0
+2:3/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+18:3/0 = 0
+18:4/0 = 0
+19:3/0 = 0
+19:4/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dyl1"]
+texture = ExtResource("4_kbo48")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+2:0/size_in_atlas = Vector2i(2, 2)
+2:0/0 = 0
+0:2/size_in_atlas = Vector2i(2, 2)
+0:2/0 = 0
+2:2/size_in_atlas = Vector2i(2, 2)
+2:2/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_odhdn"]
 sources/0 = SubResource("TileSetAtlasSource_bwv4p")
+sources/1 = SubResource("TileSetAtlasSource_kbo48")
+sources/2 = SubResource("TileSetAtlasSource_4dyl1")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exm4q"]
+size = Vector2(384, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wqqfq"]
+size = Vector2(20, 130)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dw26h"]
 texture = ExtResource("1_6ovph")
@@ -23,42 +101,109 @@ texture = ExtResource("1_6ovph")
 10:3/size_in_atlas = Vector2i(3, 2)
 10:3/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jxjwb"]
+texture = ExtResource("4_kbo48")
+6:0/size_in_atlas = Vector2i(8, 4)
+6:0/0 = 0
+6:0/0/y_sort_origin = 1
+
 [sub_resource type="TileSet" id="TileSet_lrl65"]
 sources/0 = SubResource("TileSetAtlasSource_dw26h")
+sources/1 = SubResource("TileSetAtlasSource_jxjwb")
 
-[node name="Level1" type="Node" unique_id=1529813403 node_paths=PackedStringArray("turn_based_combat", "world", "player", "enemy")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_svatc"]
+radius = 7.0
+
+[node name="Level1" type="Node" unique_id=1529813403 node_paths=PackedStringArray("turn_based_combat", "world", "player", "enemy", "health_item", "health_gain_text", "current_hp_label", "game_over_screen")]
 script = ExtResource("1_lrl65")
 turn_based_combat = NodePath("TurnBasedCombat")
 world = NodePath("Elements")
 player = NodePath("Elements/Player")
-enemy = NodePath("Elements/Walls/Knight")
+enemy = NodePath("Elements/Knight")
+health_item = NodePath("Elements/HealthItem")
+health_gain_text = NodePath("Elements/HealthGain")
+current_hp_label = NodePath("Elements/CurrentHealth")
+game_over_screen = NodePath("GameOverComponent")
 
 [node name="Elements" type="Node2D" parent="." unique_id=1480308496]
-visible = false
 position = Vector2(79, 107)
 
 [node name="Floor" type="TileMapLayer" parent="Elements" unique_id=124393546]
-tile_map_data = PackedByteArray("AAAAAAAAAAABAAEAAAACAAAAAAABAAEAAAAEAAAAAAABAAEAAAAAAAIAAAABAAEAAAACAAIAAAABAAEAAAAEAAIAAAABAAEAAAAGAAAAAAABAAEAAAAGAAIAAAABAAEAAAAIAAAAAAABAAEAAAAIAAIAAAABAAEAAAAAAAQAAAABAAEAAAACAAQAAAABAAEAAAAEAAQAAAABAAEAAAAGAAQAAAABAAEAAAAIAAQAAAABAAEAAAAKAAAAAAABAAEAAAAKAAIAAAABAAEAAAAKAAQAAAABAAEAAAAMAAAAAAABAAEAAAAMAAIAAAABAAEAAAAAAAYAAAABAAEAAAACAAYAAAABAAEAAAAEAAYAAAABAAEAAAAGAAYAAAABAAEAAAAIAAYAAAABAAEAAAAKAAYAAAABAAEAAAAMAAQAAAABAAEAAAAMAAYAAAABAAEAAAAOAAAAAAABAAEAAAAOAAIAAAABAAEAAAAOAAQAAAABAAEAAAAOAAYAAAABAAEAAAAQAAAAAAABAAEAAAAQAAIAAAABAAEAAAAQAAQAAAABAAEAAAAQAAYAAAABAAEAAAASAAAAAAABAAEAAAASAAIAAAABAAEAAAASAAQAAAABAAEAAAASAAYAAAABAAEAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAACAAAAAgAAAAAAAAAEAAAAAgAAAAAAAAAAAAIAAgAAAAAAAAACAAIAAgAAAAAAAAAEAAIAAgAAAAAAAAAGAAAAAgAAAAAAAAAGAAIAAgAAAAAAAAAIAAAAAgAAAAAAAAAIAAIAAgAAAAAAAAAAAAQAAgAAAAAAAAACAAQAAgAAAAAAAAAEAAQAAgAAAAAAAAAGAAQAAgAAAAAAAAAIAAQAAgAAAAAAAAAKAAAAAgAAAAAAAAAKAAIAAgAAAAAAAAAKAAQAAgAAAAAAAAAMAAAAAgAAAAAAAAAMAAIAAgAAAAAAAAAAAAYAAgAAAAAAAAACAAYAAgAAAAAAAAAEAAYAAgAAAAAAAAAGAAYAAgAAAAAAAAAIAAYAAgAAAAAAAAAKAAYAAgAAAAAAAAAMAAQAAgAAAAAAAAAMAAYAAgAAAAAAAAAOAAAAAgAAAAAAAAAOAAIAAgAAAAAAAAAOAAQAAgAAAAAAAAAOAAYAAgAAAAAAAAAQAAAAAgAAAAAAAAAQAAIAAgAAAAAAAAAQAAQAAgAAAAAAAAAQAAYAAgAAAAAAAAASAAAAAgAAAAAAAAASAAIAAgAAAAAAAAASAAQAAgAAAAAAAAASAAYAAgAAAAAAAAAUAAAAAgAAAAAAAAAUAAIAAgAAAAAAAAAUAAQAAgAAAAAAAAAUAAYAAgAAAAAAAAAWAAAAAgAAAAAAAAAWAAIAAgAAAAAAAAAWAAQAAgAAAAAAAAAWAAYAAgAAAAAAAAA=")
 tile_set = SubResource("TileSet_odhdn")
 
+[node name="collisions" type="StaticBody2D" parent="Elements/Floor" unique_id=764977095]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Elements/Floor/collisions" unique_id=785018604]
+position = Vector2(184, 137)
+shape = SubResource("RectangleShape2D_exm4q")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Elements/Floor/collisions" unique_id=592234316]
+position = Vector2(-22, 55)
+shape = SubResource("RectangleShape2D_wqqfq")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Elements/Floor/collisions" unique_id=1378702514]
+position = Vector2(389, 54)
+shape = SubResource("RectangleShape2D_wqqfq")
+
 [node name="Walls" type="TileMapLayer" parent="Elements" unique_id=642389758]
-tile_map_data = PackedByteArray("AAAAAP7/AAAHAAMAAAACAP7/AAAKAAMAAAAEAP7/AAAKAAMAAAAGAP7/AAAKAAMAAAAIAP7/AAAKAAMAAAAKAP7/AAAKAAMAAAAMAP7/AAAKAAMAAAAOAP7/AAAKAAMAAAAQAP7/AAAKAAMAAAARAP7/AAAKAAMAAAASAP7/AAAKAAMAAAA=")
+tile_map_data = PackedByteArray("AAADAP3/AQAGAAAAAAALAP3/AQAGAAAAAAATAP3/AQAGAAAAAAA=")
 tile_set = SubResource("TileSet_lrl65")
 
-[node name="Knight" parent="Elements/Walls" unique_id=1692465840 instance=ExtResource("3_odhdn")]
-position = Vector2(266, 32)
+[node name="collisions" type="StaticBody2D" parent="Elements/Walls" unique_id=1121397022]
 
-[node name="EnemyAreaComponent" parent="Elements/Walls/Knight" unique_id=79664541 instance=ExtResource("4_dw26h")]
-script = ExtResource("5_svatc")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Elements/Walls/collisions" unique_id=1377554086]
+position = Vector2(184, -47.5)
+shape = SubResource("RectangleShape2D_exm4q")
 
 [node name="Player" parent="Elements" unique_id=995573411 instance=ExtResource("2_bwv4p")]
 
-[node name="TurnBasedCombat" parent="." unique_id=1564573653 node_paths=PackedStringArray("main_scene") instance=ExtResource("6_76388")]
+[node name="HealthItem" parent="Elements" unique_id=1616120219 instance=ExtResource("7_svatc")]
+visible = false
+position = Vector2(267, 33)
+
+[node name="HealthItemArea" type="Area2D" parent="Elements/HealthItem" unique_id=1150670307]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Elements/HealthItem/HealthItemArea" unique_id=559170568]
+shape = SubResource("CircleShape2D_svatc")
+
+[node name="HealthGain" type="Label" parent="Elements" unique_id=622953724]
+visible = false
+offset_left = 97.0
+offset_top = -93.0
+offset_right = 301.0
+offset_bottom = -70.0
+text = "You gained 10 max health!"
+
+[node name="CurrentHealth" type="Label" parent="Elements" unique_id=800403166]
+offset_left = -10.0
+offset_top = -93.0
+offset_right = 76.0
+offset_bottom = -70.0
+text = "Current HP"
+
+[node name="ItemPickedUp" type="AudioStreamPlayer2D" parent="Elements" unique_id=1311415575]
+position = Vector2(25, -25)
+stream = ExtResource("7_ecr63")
+volume_db = -16.0
+
+[node name="Knight" parent="Elements" unique_id=1692465840 instance=ExtResource("3_odhdn")]
+position = Vector2(266, 32)
+
+[node name="EnemyAreaComponent" parent="Elements/Knight" unique_id=79664541 instance=ExtResource("4_dw26h")]
+
+[node name="TurnBasedCombat" parent="." unique_id=1564573653 node_paths=PackedStringArray("level") instance=ExtResource("6_76388")]
+visible = false
 position = Vector2(112, 126)
-main_scene = NodePath("..")
+level = NodePath("..")
 
 [node name="Knight" parent="TurnBasedCombat" unique_id=121492719 instance=ExtResource("3_odhdn")]
-position = Vector2(95, 64)
+position = Vector2(101, 59)
+scale = Vector2(1.5, 1.5)
 
-[connection signal="body_entered" from="Elements/Walls/Knight/EnemyAreaComponent" to="." method="_on_enemy_area_component_body_entered"]
+[node name="GameOverComponent" parent="." unique_id=605962132 instance=ExtResource("11_4dyl1")]
+visible = false
+
+[connection signal="body_entered" from="Elements/HealthItem/HealthItemArea" to="." method="_on_health_item_area_body_entered"]
+[connection signal="body_entered" from="Elements/Knight/EnemyAreaComponent" to="." method="_on_enemy_area_component_body_entered"]
 [connection signal="combat_over" from="TurnBasedCombat" to="." method="_on_turn_based_combat_combat_over"]
