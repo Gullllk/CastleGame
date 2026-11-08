@@ -33,6 +33,7 @@ func _ready() -> void:
 	is_player_turn = true
 	$"Opponent's Turn".hide()
 	action_label.hide()
+	combat_over.emit(true)
 	
 	
 

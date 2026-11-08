@@ -3,8 +3,18 @@
 [ext_resource type="Texture2D" uid="uid://b2738lrrkswsb" path="res://assets/sprites/health_sprite.png" id="1_7x6q0"]
 [ext_resource type="Script" uid="uid://dj5gjet2qdgq2" path="res://scripts/health_item.gd" id="1_usc6j"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_urj2l"]
+radius = 7.0
+
 [node name="HealthItem" type="Node2D" unique_id=1616120219]
 script = ExtResource("1_usc6j")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1159105365]
 texture = ExtResource("1_7x6q0")
+
+[node name="HealthItemArea" type="Area2D" parent="." unique_id=1774484375]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthItemArea" unique_id=1043654333]
+shape = SubResource("CircleShape2D_urj2l")
+
+[connection signal="body_entered" from="HealthItemArea" to="." method="_on_health_item_area_body_entered"]

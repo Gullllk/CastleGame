@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://1mlq4dggfrg"]
-
-[ext_resource type="PackedScene" uid="uid://bbdw0djeifcvg" path="res://components/turn_based_combat.tscn" id="1_3bmlt"]
-
-[node name="Level2" type="Node" unique_id=1608080703]
-
-[node name="TurnBasedCombat" parent="." unique_id=1564573653 instance=ExtResource("1_3bmlt")]

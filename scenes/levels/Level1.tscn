@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bvmlhr61bnvup" path="res://scenes/knight.tscn" id="3_odhdn"]
 [ext_resource type="PackedScene" uid="uid://i340ah2piitv" path="res://components/enemy_area_component.tscn" id="4_dw26h"]
 [ext_resource type="Texture2D" uid="uid://bpgk0yccehvld" path="res://assets/tiles/tiles version 3.png" id="4_kbo48"]
+[ext_resource type="PackedScene" uid="uid://ymhr0bglg78n" path="res://components/door_component.tscn" id="5_jxjwb"]
 [ext_resource type="PackedScene" uid="uid://bbdw0djeifcvg" path="res://components/turn_based_combat.tscn" id="6_76388"]
 [ext_resource type="AudioStream" uid="uid://db6pxb3mid622" path="res://assets/sounds/power_up.wav" id="7_ecr63"]
 [ext_resource type="PackedScene" uid="uid://h3pj4ov00isj" path="res://components/items/health_item.tscn" id="7_svatc"]
@@ -111,63 +112,60 @@ texture = ExtResource("4_kbo48")
 sources/0 = SubResource("TileSetAtlasSource_dw26h")
 sources/1 = SubResource("TileSetAtlasSource_jxjwb")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_svatc"]
-radius = 7.0
-
-[node name="Level1" type="Node" unique_id=1529813403 node_paths=PackedStringArray("turn_based_combat", "world", "player", "enemy", "health_item", "health_gain_text", "current_hp_label", "game_over_screen")]
+[node name="Level1" type="Node" unique_id=1529813403 node_paths=PackedStringArray("turn_based_combat", "world", "player", "enemy", "health_item", "health_gain_text", "current_hp_label", "game_over_screen", "item_picked_up_sound")]
 script = ExtResource("1_lrl65")
 turn_based_combat = NodePath("TurnBasedCombat")
-world = NodePath("Elements")
-player = NodePath("Elements/Player")
-enemy = NodePath("Elements/Knight")
-health_item = NodePath("Elements/HealthItem")
-health_gain_text = NodePath("Elements/HealthGain")
-current_hp_label = NodePath("Elements/CurrentHealth")
+world = NodePath("WorldElements")
+player = NodePath("WorldElements/Player")
+enemy = NodePath("WorldElements/Knight")
+health_item = NodePath("WorldElements/HealthItem")
+health_gain_text = NodePath("WorldElements/HealthGain")
+current_hp_label = NodePath("WorldElements/CurrentHealth")
 game_over_screen = NodePath("GameOverComponent")
+item_picked_up_sound = NodePath("WorldElements/ItemPickedUp2")
 
-[node name="Elements" type="Node2D" parent="." unique_id=1480308496]
+[node name="WorldElements" type="Node2D" parent="." unique_id=1480308496]
 position = Vector2(79, 107)
 
-[node name="Floor" type="TileMapLayer" parent="Elements" unique_id=124393546]
+[node name="Floor" type="TileMapLayer" parent="WorldElements" unique_id=124393546]
 tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAACAAAAAgAAAAAAAAAEAAAAAgAAAAAAAAAAAAIAAgAAAAAAAAACAAIAAgAAAAAAAAAEAAIAAgAAAAAAAAAGAAAAAgAAAAAAAAAGAAIAAgAAAAAAAAAIAAAAAgAAAAAAAAAIAAIAAgAAAAAAAAAAAAQAAgAAAAAAAAACAAQAAgAAAAAAAAAEAAQAAgAAAAAAAAAGAAQAAgAAAAAAAAAIAAQAAgAAAAAAAAAKAAAAAgAAAAAAAAAKAAIAAgAAAAAAAAAKAAQAAgAAAAAAAAAMAAAAAgAAAAAAAAAMAAIAAgAAAAAAAAAAAAYAAgAAAAAAAAACAAYAAgAAAAAAAAAEAAYAAgAAAAAAAAAGAAYAAgAAAAAAAAAIAAYAAgAAAAAAAAAKAAYAAgAAAAAAAAAMAAQAAgAAAAAAAAAMAAYAAgAAAAAAAAAOAAAAAgAAAAAAAAAOAAIAAgAAAAAAAAAOAAQAAgAAAAAAAAAOAAYAAgAAAAAAAAAQAAAAAgAAAAAAAAAQAAIAAgAAAAAAAAAQAAQAAgAAAAAAAAAQAAYAAgAAAAAAAAASAAAAAgAAAAAAAAASAAIAAgAAAAAAAAASAAQAAgAAAAAAAAASAAYAAgAAAAAAAAAUAAAAAgAAAAAAAAAUAAIAAgAAAAAAAAAUAAQAAgAAAAAAAAAUAAYAAgAAAAAAAAAWAAAAAgAAAAAAAAAWAAIAAgAAAAAAAAAWAAQAAgAAAAAAAAAWAAYAAgAAAAAAAAA=")
 tile_set = SubResource("TileSet_odhdn")
 
-[node name="collisions" type="StaticBody2D" parent="Elements/Floor" unique_id=764977095]
+[node name="collisions" type="StaticBody2D" parent="WorldElements/Floor" unique_id=764977095]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Elements/Floor/collisions" unique_id=785018604]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldElements/Floor/collisions" unique_id=785018604]
 position = Vector2(184, 137)
 shape = SubResource("RectangleShape2D_exm4q")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Elements/Floor/collisions" unique_id=592234316]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldElements/Floor/collisions" unique_id=592234316]
 position = Vector2(-22, 55)
 shape = SubResource("RectangleShape2D_wqqfq")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Elements/Floor/collisions" unique_id=1378702514]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldElements/Floor/collisions" unique_id=1378702514]
 position = Vector2(389, 54)
 shape = SubResource("RectangleShape2D_wqqfq")
 
-[node name="Walls" type="TileMapLayer" parent="Elements" unique_id=642389758]
+[node name="Walls" type="TileMapLayer" parent="WorldElements" unique_id=642389758]
 tile_map_data = PackedByteArray("AAADAP3/AQAGAAAAAAALAP3/AQAGAAAAAAATAP3/AQAGAAAAAAA=")
 tile_set = SubResource("TileSet_lrl65")
 
-[node name="collisions" type="StaticBody2D" parent="Elements/Walls" unique_id=1121397022]
+[node name="collisions" type="StaticBody2D" parent="WorldElements/Walls" unique_id=1121397022]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Elements/Walls/collisions" unique_id=1377554086]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldElements/Walls/collisions" unique_id=1377554086]
 position = Vector2(184, -47.5)
 shape = SubResource("RectangleShape2D_exm4q")
 
-[node name="Player" parent="Elements" unique_id=995573411 instance=ExtResource("2_bwv4p")]
+[node name="DoorComponent" parent="WorldElements" unique_id=735899017 node_paths=PackedStringArray("player") instance=ExtResource("5_jxjwb")]
+position = Vector2(240, -64)
+player = NodePath("../Player")
 
-[node name="HealthItem" parent="Elements" unique_id=1616120219 instance=ExtResource("7_svatc")]
+[node name="Player" parent="WorldElements" unique_id=995573411 instance=ExtResource("2_bwv4p")]
+
+[node name="HealthItem" parent="WorldElements" unique_id=1616120219 instance=ExtResource("7_svatc")]
 visible = false
 position = Vector2(267, 33)
 
-[node name="HealthItemArea" type="Area2D" parent="Elements/HealthItem" unique_id=1150670307]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Elements/HealthItem/HealthItemArea" unique_id=559170568]
-shape = SubResource("CircleShape2D_svatc")
-
-[node name="HealthGain" type="Label" parent="Elements" unique_id=622953724]
+[node name="HealthGain" type="Label" parent="WorldElements" unique_id=622953724]
 visible = false
 offset_left = 97.0
 offset_top = -93.0
@@ -175,22 +173,22 @@ offset_right = 301.0
 offset_bottom = -70.0
 text = "You gained 10 max health!"
 
-[node name="CurrentHealth" type="Label" parent="Elements" unique_id=800403166]
-offset_left = -10.0
-offset_top = -93.0
-offset_right = 76.0
-offset_bottom = -70.0
+[node name="CurrentHealth" type="Label" parent="WorldElements" unique_id=800403166]
+offset_left = -69.0
+offset_top = -101.0
+offset_right = 17.0
+offset_bottom = -78.0
 text = "Current HP"
 
-[node name="ItemPickedUp" type="AudioStreamPlayer2D" parent="Elements" unique_id=1311415575]
-position = Vector2(25, -25)
-stream = ExtResource("7_ecr63")
-volume_db = -16.0
-
-[node name="Knight" parent="Elements" unique_id=1692465840 instance=ExtResource("3_odhdn")]
+[node name="Knight" parent="WorldElements" unique_id=1692465840 instance=ExtResource("3_odhdn")]
 position = Vector2(266, 32)
 
-[node name="EnemyAreaComponent" parent="Elements/Knight" unique_id=79664541 instance=ExtResource("4_dw26h")]
+[node name="EnemyAreaComponent" parent="WorldElements/Knight" unique_id=79664541 instance=ExtResource("4_dw26h")]
+
+[node name="ItemPickedUp2" type="AudioStreamPlayer2D" parent="WorldElements" unique_id=87001548]
+position = Vector2(292, 8)
+stream = ExtResource("7_ecr63")
+volume_db = -16.0
 
 [node name="TurnBasedCombat" parent="." unique_id=1564573653 node_paths=PackedStringArray("level") instance=ExtResource("6_76388")]
 visible = false
@@ -204,6 +202,7 @@ scale = Vector2(1.5, 1.5)
 [node name="GameOverComponent" parent="." unique_id=605962132 instance=ExtResource("11_4dyl1")]
 visible = false
 
-[connection signal="body_entered" from="Elements/HealthItem/HealthItemArea" to="." method="_on_health_item_area_body_entered"]
-[connection signal="body_entered" from="Elements/Knight/EnemyAreaComponent" to="." method="_on_enemy_area_component_body_entered"]
+[connection signal="open_door" from="WorldElements/DoorComponent" to="." method="_on_door_component_open_door"]
+[connection signal="picked_up" from="WorldElements/HealthItem" to="." method="_on_health_item_picked_up"]
+[connection signal="body_entered" from="WorldElements/Knight/EnemyAreaComponent" to="." method="_on_enemy_area_component_body_entered"]
 [connection signal="combat_over" from="TurnBasedCombat" to="." method="_on_turn_based_combat_combat_over"]
