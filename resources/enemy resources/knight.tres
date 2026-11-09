@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://b21qdfqc3rbhw"]
 
-[ext_resource type="Script" uid="uid://cdrreyh5mnhxd" path="res://EnemyResource.gd" id="1_fnwty"]
+[ext_resource type="Script" uid="uid://cdrreyh5mnhxd" path="res://scripts/EnemyResource.gd" id="1_fnwty"]
 [ext_resource type="Texture2D" uid="uid://cm3gto6jyg3bo" path="res://assets/sprites/knight TEMPORARY.png" id="2_vvmry"]
 
 [resource]

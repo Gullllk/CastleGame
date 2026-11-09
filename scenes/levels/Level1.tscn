@@ -171,7 +171,7 @@ offset_left = 97.0
 offset_top = -93.0
 offset_right = 301.0
 offset_bottom = -70.0
-text = "You gained 10 max health!"
+text = "You gained 10 health!"
 
 [node name="CurrentHealth" type="Label" parent="WorldElements" unique_id=800403166]
 offset_left = -69.0

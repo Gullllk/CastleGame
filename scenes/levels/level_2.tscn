@@ -1,9 +1,11 @@
 [gd_scene format=4 uid="uid://1mlq4dggfrg"]
 
-[ext_resource type="Script" uid="uid://uten8nxl2ee6" path="res://scenes/levels/level_2.gd" id="1_fiq81"]
+[ext_resource type="Script" uid="uid://uten8nxl2ee6" path="res://scripts/level_2.gd" id="1_fiq81"]
 [ext_resource type="Texture2D" uid="uid://bpgk0yccehvld" path="res://assets/tiles/tiles version 3.png" id="2_g2h2n"]
 [ext_resource type="PackedScene" uid="uid://p5d78pclcg74" path="res://scenes/player.tscn" id="2_ra442"]
 [ext_resource type="PackedScene" uid="uid://ymhr0bglg78n" path="res://components/door_component.tscn" id="3_fiq81"]
+[ext_resource type="PackedScene" uid="uid://bsduv3vm7epo8" path="res://components/items/item_component.tscn" id="4_l37oo"]
+[ext_resource type="AudioStream" uid="uid://db6pxb3mid622" path="res://assets/sounds/power_up.wav" id="6_qpwj6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ra442"]
 texture = ExtResource("2_g2h2n")
@@ -30,10 +32,11 @@ size = Vector2(20, 127)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqqfq"]
 size = Vector2(20, 127)
 
-[node name="Level2" type="Node" unique_id=1608080703 node_paths=PackedStringArray("player", "current_hp_label")]
+[node name="Level2" type="Node" unique_id=1608080703 node_paths=PackedStringArray("player", "current_hp_label", "stats_gained_label")]
 script = ExtResource("1_fiq81")
 player = NodePath("WorldElements/Player")
 current_hp_label = NodePath("WorldElements/Player/CurrentHP")
+stats_gained_label = NodePath("WorldElements/Player/StatsGained")
 
 [node name="WorldElements" type="Node2D" parent="." unique_id=82174692]
 
@@ -64,6 +67,17 @@ shape = SubResource("RectangleShape2D_wqqfq")
 [node name="DoorComponent" parent="WorldElements" unique_id=735899017 instance=ExtResource("3_fiq81")]
 position = Vector2(896, 112)
 
+[node name="ItemComponent" parent="WorldElements" unique_id=2045579763 instance=ExtResource("4_l37oo")]
+position = Vector2(122, 202)
+item_type = 0
+
+[node name="ItemComponent2" parent="WorldElements" unique_id=1747826738 instance=ExtResource("4_l37oo")]
+position = Vector2(208, 203)
+
+[node name="ItemComponent3" parent="WorldElements" unique_id=486971017 instance=ExtResource("4_l37oo")]
+position = Vector2(286, 199)
+item_type = 1
+
 [node name="Player" parent="WorldElements" unique_id=995573411 instance=ExtResource("2_ra442")]
 position = Vector2(26, 157)
 
@@ -77,3 +91,21 @@ offset_top = -150.0
 offset_right = -148.0
 offset_bottom = -127.0
 text = "Current HP"
+
+[node name="StatsGained" type="Label" parent="WorldElements/Player" unique_id=1034814316]
+offset_left = -41.0
+offset_top = -45.0
+offset_right = 53.0
+offset_bottom = -22.0
+text = "StatsGained"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemPickedUp2" type="AudioStreamPlayer2D" parent="WorldElements" unique_id=545784816]
+position = Vector2(292, 8)
+stream = ExtResource("6_qpwj6")
+volume_db = -16.0
+
+[connection signal="picked_up" from="WorldElements/ItemComponent" to="." method="_on_item_component_picked_up"]
+[connection signal="picked_up" from="WorldElements/ItemComponent2" to="." method="_on_item_component_2_picked_up"]
+[connection signal="picked_up" from="WorldElements/ItemComponent3" to="." method="_on_item_component_3_picked_up"]

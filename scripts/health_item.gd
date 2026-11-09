@@ -1,4 +1,4 @@
-extends Node2D
+extends Item
 
 @onready var item_picked_up: AudioStreamPlayer2D = $ItemPickedUp
 
