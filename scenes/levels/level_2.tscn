@@ -1,11 +1,14 @@
 [gd_scene format=4 uid="uid://1mlq4dggfrg"]
 
-[ext_resource type="Script" uid="uid://uten8nxl2ee6" path="res://scripts/level_2.gd" id="1_fiq81"]
+[ext_resource type="Script" uid="uid://uten8nxl2ee6" path="res://scripts/levels/level_2.gd" id="1_fiq81"]
 [ext_resource type="Texture2D" uid="uid://bpgk0yccehvld" path="res://assets/tiles/tiles version 3.png" id="2_g2h2n"]
 [ext_resource type="PackedScene" uid="uid://p5d78pclcg74" path="res://scenes/player.tscn" id="2_ra442"]
 [ext_resource type="PackedScene" uid="uid://ymhr0bglg78n" path="res://components/door_component.tscn" id="3_fiq81"]
+[ext_resource type="PackedScene" uid="uid://cf82qqxhyo0qu" path="res://scenes/enemies/slime.tscn" id="4_ibugp"]
 [ext_resource type="PackedScene" uid="uid://bsduv3vm7epo8" path="res://components/items/item_component.tscn" id="4_l37oo"]
 [ext_resource type="AudioStream" uid="uid://db6pxb3mid622" path="res://assets/sounds/power_up.wav" id="6_qpwj6"]
+[ext_resource type="PackedScene" uid="uid://bbdw0djeifcvg" path="res://components/turn_based_combat.tscn" id="8_8qukl"]
+[ext_resource type="PackedScene" uid="uid://cwkscio6j8740" path="res://components/game_over.tscn" id="9_3p04p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ra442"]
 texture = ExtResource("2_g2h2n")
@@ -32,11 +35,15 @@ size = Vector2(20, 127)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqqfq"]
 size = Vector2(20, 127)
 
-[node name="Level2" type="Node" unique_id=1608080703 node_paths=PackedStringArray("player", "current_hp_label", "stats_gained_label")]
+[node name="Level2" type="Node" unique_id=1608080703 node_paths=PackedStringArray("player", "current_hp_label", "stats_gained_label", "turn_based_combat", "world", "player_camera", "game_over_screen")]
 script = ExtResource("1_fiq81")
 player = NodePath("WorldElements/Player")
 current_hp_label = NodePath("WorldElements/Player/CurrentHP")
 stats_gained_label = NodePath("WorldElements/Player/StatsGained")
+turn_based_combat = NodePath("TurnBasedCombat")
+world = NodePath("WorldElements")
+player_camera = NodePath("WorldElements/Player/Camera2D")
+game_over_screen = NodePath("GameOverComponent")
 
 [node name="WorldElements" type="Node2D" parent="." unique_id=82174692]
 
@@ -66,6 +73,9 @@ shape = SubResource("RectangleShape2D_wqqfq")
 
 [node name="DoorComponent" parent="WorldElements" unique_id=735899017 instance=ExtResource("3_fiq81")]
 position = Vector2(896, 112)
+
+[node name="Slime" parent="WorldElements" unique_id=1856718406 instance=ExtResource("4_ibugp")]
+position = Vector2(571, 220)
 
 [node name="ItemComponent" parent="WorldElements" unique_id=2045579763 instance=ExtResource("4_l37oo")]
 position = Vector2(122, 202)
@@ -106,6 +116,22 @@ position = Vector2(292, 8)
 stream = ExtResource("6_qpwj6")
 volume_db = -16.0
 
+[node name="TurnBasedCombat" parent="." unique_id=1564573653 node_paths=PackedStringArray("level") instance=ExtResource("8_8qukl")]
+position = Vector2(494, 377)
+level = NodePath("..")
+
+[node name="Slime" parent="TurnBasedCombat" unique_id=951188404 instance=ExtResource("4_ibugp")]
+position = Vector2(102, 58)
+scale = Vector2(1.5, 1.5)
+
+[node name="Camera2D" type="Camera2D" parent="TurnBasedCombat" unique_id=2034054590]
+position = Vector2(101, 43)
+zoom = Vector2(1.2, 1.2)
+
+[node name="GameOverComponent" parent="." unique_id=605962132 instance=ExtResource("9_3p04p")]
+
+[connection signal="player_in_area" from="WorldElements/Slime" to="." method="_on_slime_player_in_area"]
 [connection signal="picked_up" from="WorldElements/ItemComponent" to="." method="_on_item_component_picked_up"]
 [connection signal="picked_up" from="WorldElements/ItemComponent2" to="." method="_on_item_component_2_picked_up"]
 [connection signal="picked_up" from="WorldElements/ItemComponent3" to="." method="_on_item_component_3_picked_up"]
+[connection signal="combat_over" from="TurnBasedCombat" to="." method="_on_turn_based_combat_combat_over"]

@@ -1,10 +1,13 @@
 [gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://cbwth6wbtfq6m"]
 
-[ext_resource type="Script" uid="uid://cdrreyh5mnhxd" path="res://scripts/EnemyResource.gd" id="1_w1b6u"]
+[ext_resource type="Script" uid="uid://cdrreyh5mnhxd" path="res://scripts/enemies/EnemyResource.gd" id="1_w1b6u"]
+[ext_resource type="Texture2D" uid="uid://crmrg37j7kh3t" path="res://assets/sprites/slime.png" id="2_tk8v1"]
 
 [resource]
 script = ExtResource("1_w1b6u")
+enemy_name = "Slime"
 hp = 105
 damage = 5
 defend = 25
+sprite = ExtResource("2_tk8v1")
 metadata/_custom_type_script = "uid://cdrreyh5mnhxd"

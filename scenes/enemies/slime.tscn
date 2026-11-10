@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cf82qqxhyo0qu"]
+
+[ext_resource type="Script" uid="uid://dcl13nmf3fpcv" path="res://scripts/enemies/slime.gd" id="1_n6pvg"]
+[ext_resource type="Script" uid="uid://cdrreyh5mnhxd" path="res://scripts/enemies/EnemyResource.gd" id="2_pjw23"]
+[ext_resource type="Texture2D" uid="uid://crmrg37j7kh3t" path="res://assets/sprites/slime.png" id="3_2npkn"]
+[ext_resource type="PackedScene" uid="uid://i340ah2piitv" path="res://components/enemy_area_component.tscn" id="4_b58ev"]
+
+[sub_resource type="Resource" id="Resource_2002g"]
+script = ExtResource("2_pjw23")
+enemy_name = "Slime"
+hp = 105
+damage = 5
+defend = 25
+sprite = ExtResource("3_2npkn")
+metadata/_custom_type_script = "uid://cdrreyh5mnhxd"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wqqfq"]
+radius = 14.0
+
+[node name="Slime" type="StaticBody2D" unique_id=1856718406]
+script = ExtResource("1_n6pvg")
+stats = SubResource("Resource_2002g")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=43112419]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=897697970]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_wqqfq")
+
+[node name="EnemyAreaComponent" parent="." unique_id=79664541 instance=ExtResource("4_b58ev")]
+
+[connection signal="body_entered" from="EnemyAreaComponent" to="." method="_on_enemy_area_component_body_entered"]

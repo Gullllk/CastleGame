@@ -57,13 +57,13 @@ func _on_door_component_open_door() -> void:
 	get_tree().change_scene_to_file(next_level)
 
 
-#func _on_health_item_picked_up() -> void:
-	#health_item.queue_free()
-	#item_picked_up_sound.play()
-	#player.max_hp += 10
-	#player.hp += 10
+func _on_health_item_picked_up() -> void:
+	health_item.queue_free()
+	item_picked_up_sound.play()
+	player.max_hp += 10
+	player.hp += 10
 	
-	#health_gain_text.show()
-	#current_hp_label.text = "HP: " + str(player.hp) + "/" + str(player.max_hp)
-	#await get_tree().create_timer(2).timeout
-	#health_gain_text.hide()
+	health_gain_text.show()
+	current_hp_label.text = "HP: " + str(player.hp) + "/" + str(player.max_hp)
+	await get_tree().create_timer(2).timeout
+	health_gain_text.hide()

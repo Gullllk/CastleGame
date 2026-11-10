@@ -6,10 +6,20 @@ extends Node
 @export var player : CharacterBody2D
 @export var current_hp_label : Label
 @export var stats_gained_label : Label
+@export var turn_based_combat : Node2D
+@export var world : Node2D
+@export var player_camera : Camera2D
+@export var game_over_screen : Control
 
 func _ready():
 	current_hp_label.text = str(player.hp) + "/" + str(player.max_hp)
 	stats_gained_label.hide()
+	turn_based_combat.hide()
+	turn_based_combat.process_mode = Node.PROCESS_MODE_DISABLED
+	game_over_screen.hide()
+	game_over_screen.process_mode = Node.PROCESS_MODE_DISABLED
+	
+	
 	
 	
 func when_item_picked_up(item):
@@ -39,3 +49,19 @@ func _on_item_component_2_picked_up(item):
 
 func _on_item_component_3_picked_up(item):
 	when_item_picked_up(item)
+
+
+func _on_slime_player_in_area() -> void:
+	world.process_mode = Node.PROCESS_MODE_DISABLED
+	world.hide()
+	turn_based_combat.process_mode = Node.PROCESS_MODE_INHERIT
+	turn_based_combat.show()
+	player_camera.enabled = false
+
+
+func _on_turn_based_combat_combat_over(won: bool) -> void:
+	if won == true:
+		pass
+	elif won == false:
+		game_over_screen.show()
+		game_over_screen.process_mode = Node.PROCESS_MODE_INHERIT

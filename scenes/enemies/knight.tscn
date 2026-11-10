@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bvmlhr61bnvup"]
 
-[ext_resource type="Script" uid="uid://ddjopqjmafw6f" path="res://scripts/knight.gd" id="1_3i0j8"]
+[ext_resource type="Script" uid="uid://ddjopqjmafw6f" path="res://scripts/enemies/knight.gd" id="1_3i0j8"]
 [ext_resource type="Resource" uid="uid://b21qdfqc3rbhw" path="res://resources/enemy resources/knight.tres" id="2_0dyjn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_swm0g"]
